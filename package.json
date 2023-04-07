@@ -2,25 +2,18 @@
   "name": "supreme-carnival",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "jest",
-    "lint": "eslint --ext .js,.vue src",
-    "lint:fix": "eslint --ext .js,.vue src --fix"
+    "lint": "npm run lint:format && npm run lint:fix",
+    "lint:fix": "eslint ./src --ext .js,.vue --quiet --fix --ignore-path ./.gitignore",
+    "lint:format": "prettier --loglevel warn --write \"./**/*.{js,vue,css,md,json}\""
   },
   "dependencies": {
-    "@babel/core": "^7.21.4",
-    "@babel/preset-env": "^7.21.4",
-    "@testing-library/vue": "^7.0.0",
-    "@vue/test-utils": "^2.0.0-rc.18",
-    "babel-jest": "^26.6.3",
-    "jest": "^26.6.3",
+    "lodash.clonedeep": "^4.5.0",
     "sass": "^1.61.0",
     "vue": "^3.2.47",
-    "vue-jest": "^5.0.0-alpha.10",
     "vue-router": "^4.1.6",
     "vuex": "^4.0.2"
   },
@@ -28,7 +21,9 @@
     "@vitejs/plugin-vue": "^4.1.0",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-vue": "^9.10.0",
     "prettier": "^2.8.7",
     "vite": "^4.2.0"

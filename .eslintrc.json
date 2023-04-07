@@ -23,5 +23,15 @@
     "plugin:prettier/recommended"
   ],
   "plugins": ["vue", "prettier"],
-  "rules": {}
+  "rules": {},
+  "overrides": [
+    {
+      "files": ["*.vue"],
+      "rules": {
+        // This rule is conflicting with composition API implementation
+        // Disabled on .vue files since the rule vue/no-unused-vars will do the job
+        "no-unused-vars": "off"
+      }
+    }
+  ]
 }

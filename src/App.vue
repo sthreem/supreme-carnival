@@ -1,9 +1,9 @@
-<script setup>
-</script>
-
 <template>
-    <h1>TEST</h1>
+  <div id="app">
+    <router-view />
+  </div>
 </template>
 
-<style scoped>
-</style>
+<script setup>
+import router from '@/router'
+</script>

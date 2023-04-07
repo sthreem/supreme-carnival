@@ -14,17 +14,17 @@ const routes = [
       {
         path: '',
         name: 'CurrencyList',
-        component: () => import('@/components/CurrencyList.vue'),
+        component: () => import('@/views/CurrencyList.vue'),
       },
       {
         path: 'add-currency',
         name: 'AddCurrency',
-        component: () => import('@/components/AddCurrency.vue'),
+        component: () => import('@/views/AddCurrency.vue'),
       },
       {
         path: 'edit-currency/:id',
         name: 'EditCurrency',
-        component: () => import('@/components/EditCurrency.vue'),
+        component: () => import('@/views/EditCurrency.vue'),
       },
     ],
   },

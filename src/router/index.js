@@ -34,12 +34,16 @@ const routes = [
           {
             path: 'add-currency',
             name: 'AddCurrency',
-            component: () => import('@/views/AddCurrencyView.vue'),
+            components: {
+              currency: () => import('@/views/AddCurrencyView.vue'),
+            },
           },
           {
             path: 'edit-currency/:id',
             name: 'EditCurrency',
-            component: () => import('@/views/EditCurrencyView.vue'),
+            components: {
+              currency: () => import('@/views/EditCurrencyView.vue'),
+            },
           },
         ],
       },

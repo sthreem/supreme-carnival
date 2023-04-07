@@ -5,9 +5,9 @@
         v-for="(navItem, index) in navItems"
         :key="index"
         class="list__item"
-        :class="{ active: navItem.name === currentRouteName }"
+        :class="{ active: navItem.path === currentRoutePath }"
       >
-        <router-link :to="{ name: navItem.name }" class="item__link">
+        <router-link :to="navItem.path" class="item__link">
           <div class="link__icon">
             <img :src="navItem.icon" :alt="navItem.name" />
           </div>
@@ -35,33 +35,46 @@ const navItems = ref([
   {
     name: 'Analytics',
     icon: AnalyticsIcon,
+    path: '/analytics',
   },
   {
     name: 'Offers',
     icon: OffersIcon,
+    path: '/offers',
   },
   {
     name: 'Loyalty',
     icon: LoyaltyIcon,
+    path: '/loyalty',
   },
   {
     name: 'Currencies',
     icon: CurrenciesIcon,
+    path: '/currencies',
   },
   {
     name: 'Dispatch',
     icon: DispatchIcon,
+    path: '/dispatch',
   },
   {
     name: 'Configurations',
     icon: ConfigurationsIcon,
+    path: '/configurations',
   },
 ])
 
 const route = useRoute()
 
-const currentRouteName = computed(() => {
-  return route.name
+const currentRoutePath = computed(() => {
+  const currentRoute = route.path
+  for (let i = 0; i < navItems.value.length; i++) {
+    const navItem = navItems.value[i]
+    if (currentRoute.startsWith(navItem.path)) {
+      return navItem.path
+    }
+  }
+  return ''
 })
 </script>
 

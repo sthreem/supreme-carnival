@@ -1,5 +1,5 @@
 <template>
-  <h1>Currency List</h1>
+  <h1>Currencies</h1>
 </template>
 
 <script setup></script>

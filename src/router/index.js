@@ -12,11 +12,6 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       {
-        path: '',
-        name: 'CurrencyList',
-        component: () => import('@/views/CurrencyList.vue'),
-      },
-      {
         path: 'add-currency',
         name: 'AddCurrency',
         component: () => import('@/views/AddCurrency.vue'),

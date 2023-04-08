@@ -1,7 +1,9 @@
 <template>
   <div class="currencies">
     <div class="currencies__left" :class="{ shrink: rightVisible }">
-      <h1>Currencies</h1>
+      <ListHeader />
+      <ListSearch />
+      <ListDisplay />
     </div>
     <div v-show="rightVisible" class="currencies__right">
       <router-view name="currency"></router-view>
@@ -12,6 +14,10 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+
+import ListHeader from '@/components/ListHeader.vue'
+import ListSearch from '@/components/ListSearch.vue'
+import ListDisplay from '@/components/ListDisplay.vue'
 
 const route = useRoute()
 

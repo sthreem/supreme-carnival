@@ -1,23 +1,25 @@
 const state = {
   currencies: JSON.parse(localStorage.getItem('currencies')) || [],
+  searchQuery: '',
 }
 
 const getters = {
-  allCurrencies: (state) => state.currencies,
-  filteredCurrencies: (state) => (searchQuery) => {
-    if (!searchQuery) return state.currencies
+  filteredCurrencies: (state) => {
+    if (!state.searchQuery) return state.currencies
 
-    const search = searchQuery.toLowerCase()
     return state.currencies.filter(
       (currency) =>
-        currency.id.toString().includes(search) ||
-        currency.isoMark.toLowerCase().includes(search) ||
-        currency.symbol.toLowerCase().includes(search)
+        currency.id.toString().includes(state.searchQuery) ||
+        currency.isoMark.toLowerCase().includes(state.searchQuery) ||
+        currency.symbol.toLowerCase().includes(state.searchQuery)
     )
   },
 }
 
 const actions = {
+  filterCurrencyList({ commit }, searchQuery) {
+    commit('filterCurrencyList', searchQuery)
+  },
   addCurrency({ commit }, newCurrency) {
     commit('addCurrency', newCurrency)
   },
@@ -30,6 +32,9 @@ const actions = {
 }
 
 const mutations = {
+  filterCurrencyList: (state, searchQuery) => {
+    state.searchQuery = searchQuery.toLowerCase()
+  },
   addCurrency: (state, newCurrency) => {
     state.currencies.push(newCurrency)
     localStorage.setItem('currencies', JSON.stringify(state.currencies))

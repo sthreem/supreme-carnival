@@ -4,6 +4,7 @@ const state = {
 }
 
 const getters = {
+  allCurrencies: (state) => state.currencies,
   filteredCurrencies: (state) => {
     if (!state.searchQuery) return state.currencies
 
@@ -14,6 +15,8 @@ const getters = {
         currency.symbol.toLowerCase().includes(state.searchQuery)
     )
   },
+  findCurrencyById: (state) => (id) =>
+    state.currencies.find((currency) => currency.id === id),
 }
 
 const actions = {

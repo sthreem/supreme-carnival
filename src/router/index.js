@@ -35,14 +35,14 @@ const routes = [
             path: 'add-currency',
             name: 'AddCurrency',
             components: {
-              currency: () => import('@/views/AddCurrencyView.vue'),
+              currency: () => import('@/components/CurrencyForm.vue'),
             },
           },
           {
             path: 'edit-currency/:id',
             name: 'EditCurrency',
             components: {
-              currency: () => import('@/views/EditCurrencyView.vue'),
+              currency: () => import('@/components/CurrencyForm.vue'),
             },
           },
         ],

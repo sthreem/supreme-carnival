@@ -21,8 +21,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, computed, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 import AnalyticsIcon from '@/assets/icons/home-nav/Analytics.svg'
 import OffersIcon from '@/assets/icons/home-nav/Discounts.svg'
@@ -65,6 +65,7 @@ const navItems = ref([
 ])
 
 const route = useRoute()
+const router = useRouter()
 
 const currentRoutePath = computed(() => {
   const currentRoute = route.path
@@ -75,6 +76,10 @@ const currentRoutePath = computed(() => {
     }
   }
   return ''
+})
+
+onMounted(() => {
+  router.push({ name: 'Currencies' })
 })
 </script>
 

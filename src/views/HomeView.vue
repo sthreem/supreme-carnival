@@ -1,9 +1,19 @@
 <template>
   <div class="home-page">
-    <header class="home-page__header"><HomeHeader /></header>
-    <main class="home-page__main-content">
-      <aside class="main-content__side-nav"><HomeNav /></aside>
-      <section class="main-content__content-area"><router-view /></section>
+    <header class="home-page__header">
+      <HomeHeader />
+    </header>
+    <main class="home-page__main">
+      <aside
+        class="home-page__main__side-nav"
+        role="complementary"
+        aria-label="Navigation"
+      >
+        <HomeNav />
+      </aside>
+      <section class="home-page__main__content-area" role="main">
+        <router-view />
+      </section>
     </main>
   </div>
 </template>
@@ -12,6 +22,7 @@
 import HomeHeader from '@/components/HomeHeader.vue'
 import HomeNav from '@/components/HomeNav.vue'
 </script>
+
 <style lang="scss" scoped>
 .home-page {
   display: flex;
@@ -24,20 +35,18 @@ import HomeNav from '@/components/HomeNav.vue'
     padding: 0 1rem;
   }
 
-  &__main-content {
+  &__main {
     display: flex;
     flex: 1;
   }
-}
 
-.main-content {
-  &__side-nav {
+  &__main__side-nav {
     flex: 0 0 300px;
     background-color: #f0f2f5;
     padding: 1rem;
   }
 
-  &__content-area {
+  &__main__content-area {
     flex: 1;
     padding: 1rem;
   }

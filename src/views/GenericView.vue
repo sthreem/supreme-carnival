@@ -1,5 +1,6 @@
 <template>
-  <h1>Offers</h1>
+  <h1>Generic View</h1>
+  <h2>Not needed for the purpose of this assignment</h2>
 </template>
 
 <script setup></script>

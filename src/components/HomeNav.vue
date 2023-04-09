@@ -1,17 +1,17 @@
 <template>
-  <nav class="nav">
-    <ul class="nav__list">
+  <nav class="main-nav">
+    <ul class="main-nav__list">
       <li
         v-for="(navItem, index) in navItems"
         :key="index"
-        class="list__item"
-        :class="{ active: navItem.path === currentRoutePath }"
+        class="main-nav__item"
+        :class="{ 'main-nav__item--active': navItem === activeNavItem }"
       >
-        <router-link :to="navItem.path" class="item__link">
-          <div class="link__icon">
+        <router-link :to="navItem.path" class="main-nav__link">
+          <div class="main-nav__icon">
             <img :src="navItem.icon" :alt="navItem.name" />
           </div>
-          <div class="link__name">
+          <div class="main-nav__name">
             {{ navItem.name }}
           </div>
         </router-link>
@@ -31,7 +31,7 @@ import CurrenciesIcon from '@/assets/icons/home-nav/Currencies.svg'
 import DispatchIcon from '@/assets/icons/home-nav/Driver.svg'
 import ConfigurationsIcon from '@/assets/icons/home-nav/Settings.svg'
 
-const navItems = ref([
+const navItems = [
   {
     name: 'Analytics',
     icon: AnalyticsIcon,
@@ -62,20 +62,17 @@ const navItems = ref([
     icon: ConfigurationsIcon,
     path: '/configurations',
   },
-])
+]
 
 const route = useRoute()
 const router = useRouter()
 
-const currentRoutePath = computed(() => {
-  const currentRoute = route.path
-  for (let i = 0; i < navItems.value.length; i++) {
-    const navItem = navItems.value[i]
-    if (currentRoute.startsWith(navItem.path)) {
-      return navItem.path
-    }
-  }
-  return ''
+const activeNavItem = computed(() => {
+  const currentPath = route.path
+  const matchingNavItem = navItems.find((navItem) =>
+    currentPath.startsWith(navItem.path)
+  )
+  return matchingNavItem || null
 })
 
 onMounted(() => {
@@ -84,7 +81,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.nav {
+.main-nav {
   width: 100%;
   height: 100%;
 
@@ -96,15 +93,11 @@ onMounted(() => {
     flex-direction: column;
     align-items: flex-start;
   }
-}
 
-.list {
   &__item {
     width: 100%;
   }
-}
 
-.item {
   &__link {
     display: flex;
     align-items: center;
@@ -112,9 +105,7 @@ onMounted(() => {
     color: #333;
     text-decoration: none;
   }
-}
 
-.link {
   &__icon {
     margin-right: 1rem;
     width: 1.5rem;
@@ -125,9 +116,9 @@ onMounted(() => {
     font-size: 1.2rem;
     font-weight: 500;
   }
-}
 
-.active {
-  background-color: #fff;
+  &__item--active {
+    background-color: #fff;
+  }
 }
 </style>

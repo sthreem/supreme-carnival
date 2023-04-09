@@ -1,21 +1,12 @@
 <template>
   <div class="currency-form">
-    <div class="form__header">
-      <div class="header__left">
-        <button class="close-button" @click="goBack">
-          <img src="@/assets/icons/currency-form/Close.svg" alt="Close" />
-        </button>
-        <h2>{{ formTitle }}</h2>
-      </div>
-      <div class="header__right">
-        <button class="cancel-button" @click="cancel">Cancel</button>
-        <button class="action-button" @click="executeAction">
-          {{ actionButtonText }}
-        </button>
-      </div>
-    </div>
+    <FormHeader
+      :is-add-form="route.name === 'AddCurrency'"
+      :on-cancel="cancel"
+      :on-execute="executeAction"
+    />
     <form novalidate @submit.prevent="executeAction">
-      <div class="form__body__field">
+      <div class="currency-form__body-field">
         <label for="currency-name">Currency Name</label>
         <input
           id="currency-name"
@@ -29,7 +20,7 @@
           Please enter a name
         </p>
       </div>
-      <div class="form__body__field">
+      <div class="currency-form__body-field">
         <label for="currency-code">Currency Code</label>
         <input
           id="currency-code"
@@ -47,7 +38,7 @@
           Please enter a code
         </p>
       </div>
-      <div class="form__body__field">
+      <div class="currency-form__body-field">
         <label for="currency-symbol">Currency Symbol</label>
         <input
           id="currency-symbol"
@@ -77,25 +68,21 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import {
+  validateId,
+  validateIsoMark,
+  validateSymbol,
+  isCurrencyUnique,
+} from '@/utils/validation'
+
+import FormHeader from '@/components/FormHeader.vue'
 
 const router = useRouter()
 const route = useRoute()
 const store = useStore()
-
-const goBack = () => {
-  router.back()
-}
-
-const formTitle = computed(() => {
-  return route.name === 'AddCurrency' ? 'Add Currency' : 'Edit Currency'
-})
-
-const actionButtonText = computed(() => {
-  return route.name === 'AddCurrency' ? 'Add' : 'Save'
-})
 
 const currency = ref({
   id: '',
@@ -117,20 +104,20 @@ watch(
         currency.value = { ...currencyToUpdate }
       }
     }
+
+    if (route.name === 'AddCurrency') {
+      currency.value = {
+        id: '',
+        isoMark: '',
+        symbol: '',
+      }
+    }
   },
   { immediate: true }
 )
 
-const validateId = () => {
-  idError.value = !currency.value.id
-}
-
-const validateIsoMark = () => {
-  isoMarkError.value = !currency.value.isoMark
-}
-
-const validateSymbol = () => {
-  symbolError.value = !currency.value.symbol
+const closeForm = () => {
+  router.push({ name: 'Currencies' })
 }
 
 const cancel = () => {
@@ -148,26 +135,20 @@ const cancel = () => {
       symbol: '',
     }
   }
-  goBack()
+
+  closeForm()
 }
 
-const isCurrencyUnique = () => {
-  const existingCurrency = store.getters['currency/allCurrencies'].find(
-    (c) =>
-      c.id === currency.value.id ||
-      c.isoMark === currency.value.isoMark ||
-      c.symbol === currency.value.symbol
-  )
-  return !existingCurrency
-}
-
-const executeAction = () => {
-  validateId()
-  validateIsoMark()
-  validateSymbol()
+const executeAction = async () => {
+  idError.value = !validateId(currency.value.id)
+  isoMarkError.value = !validateIsoMark(currency.value.isoMark)
+  symbolError.value = !validateSymbol(currency.value.symbol)
 
   if (!idError.value && !isoMarkError.value && !symbolError.value) {
-    if (route.name === 'AddCurrency' && !isCurrencyUnique()) {
+    if (
+      route.name === 'AddCurrency' &&
+      !isCurrencyUnique(currency.value, store.getters['currency/allCurrencies'])
+    ) {
       uniqueError.value = true
       return
     }
@@ -178,9 +159,9 @@ const executeAction = () => {
       route.name === 'AddCurrency'
         ? 'currency/addCurrency'
         : 'currency/updateCurrency'
-    store.dispatch(action, currency.value).then(() => {
-      goBack()
-    })
+
+    await store.dispatch(action, currency.value)
+    closeForm()
   }
 }
 </script>
@@ -190,92 +171,43 @@ const executeAction = () => {
   padding: 0 1rem;
 }
 
-.form {
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.currency-form__body-field {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
   }
-}
 
-.header {
-  &__left,
-  &__right {
-    display: flex;
-    align-items: center;
+  input {
+    height: 3rem;
+    padding: 0.5rem;
+    border: 1px solid #dfe1e5;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
 
-    h2 {
-      font-weight: 500;
-      margin-left: 1rem;
+    &:focus {
+      border-color: #2f80ed;
     }
 
-    button {
-      height: 3rem;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button.cancel-button {
-      margin-right: 1rem;
-    }
-
-    button.action-button {
-      background-color: #2f80ed;
-      color: #fff;
-
-      &:hover {
-        background-color: #1f6ac8;
-      }
+    &.error {
+      border-color: #e74c3c;
     }
   }
-}
 
-.form__body {
-  margin-top: 2rem;
+  .error-message {
+    font-size: 0.9rem;
+    color: #e74c3c;
+    margin-top: 0.25rem;
+    display: none;
 
-  &__field {
-    margin-bottom: 1rem;
-    display: flex;
-    flex-direction: column;
-
-    label {
-      font-size: 1rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
-
-    input {
-      height: 3rem;
-      padding: 0.5rem;
-      border: 1px solid #dfe1e5;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-family: inherit;
-      outline: none;
-
-      &:focus {
-        border-color: #2f80ed;
-      }
-
-      &.error {
-        border-color: #e74c3c;
-      }
-    }
-
-    .error-message {
-      font-size: 0.9rem;
-      color: #e74c3c;
-      margin-top: 0.25rem;
-      display: none;
-
-      &.visible {
-        display: block;
-      }
+    &.visible {
+      display: block;
     }
   }
 }

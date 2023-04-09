@@ -1,19 +1,20 @@
 <template>
-  <div class="list-header">
-    <h2 class="list-header__title">Currencies</h2>
+  <header class="header">
+    <h2 class="header__title">Currencies</h2>
     <button
-      class="list-header__button"
+      class="header__button"
       :disabled="isAddCurrencyRoute"
+      aria-label="Add Currency"
       @click="addCurrency"
     >
       <img
-        class="list-header__button-icon"
+        class="header__button-icon"
         src="@/assets/icons/currency-list/Plus.svg"
-        alt="Add Currency"
+        alt=""
       />
-      <span class="list-header__button-label">Add Currency</span>
+      <span class="header__button-label">Add Currency</span>
     </button>
-  </div>
+  </header>
 </template>
 
 <script setup>
@@ -32,7 +33,7 @@ const isAddCurrencyRoute = computed(() => {
 </script>
 
 <style lang="scss">
-.list-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -57,22 +58,20 @@ const isAddCurrencyRoute = computed(() => {
     background-color: #2f80ed;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-}
 
-.list-header__button {
-  img {
-    margin-right: 0.5rem;
-  }
+    &-icon {
+      margin-right: 0.5rem;
+    }
 
-  &:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
 
-  &:hover {
-    &:not(:disabled) {
-      background-color: #1f6ac8;
+    &:hover {
+      &:not(:disabled) {
+        background-color: #1f6ac8;
+      }
     }
   }
 }

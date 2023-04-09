@@ -1,10 +1,10 @@
 <template>
   <div class="login-page">
-    <div class="login-page__card">
-      <h2 class="login-page__title">Sign In</h2>
+    <section class="login-page__card" aria-labelledby="login-title">
+      <h2 id="login-title" class="login-page__title">Sign In</h2>
       <h3 class="login-page__subtitle">Please enter your email and password</h3>
       <LoginForm />
-    </div>
+    </section>
   </div>
 </template>
 

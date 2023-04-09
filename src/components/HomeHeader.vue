@@ -1,28 +1,38 @@
 <template>
-  <header class="header">
-    <div class="header__left">
-      <div class="header__logo">
+  <header class="main-header">
+    <div class="main-header__left">
+      <div class="main-header__logo">
         <img
           src="@/assets/icons/home-header/Generic-brand.svg"
           alt="Logo"
+          role="button"
+          tabindex="0"
           @click="handleLogoClick"
         />
       </div>
-      <div class="header__texts">
-        <h1 class="header__brand">Brand name</h1>
-        <button class="header__stores" @click="handleStoreClick">
+      <div class="main-header__texts">
+        <h1 class="main-header__brand">Brand name</h1>
+        <button class="main-header__stores" @click="handleStoreClick">
           All stores
         </button>
       </div>
     </div>
-    <div class="header__right">
-      <button class="header__icon" @click="handleNotificationClick">
+    <div class="main-header__right">
+      <button
+        class="main-header__icon"
+        aria-label="Notifications"
+        @click="handleNotificationClick"
+      >
         <img
           src="@/assets/icons/home-header/Bell.svg"
           alt="Notification icon"
         />
       </button>
-      <button class="header__icon" @click="handleProfileClick">
+      <button
+        class="main-header__icon"
+        aria-label="Profile"
+        @click="handleProfileClick"
+      >
         <img src="@/assets/icons/home-header/User.svg" alt="Profile icon" />
       </button>
     </div>
@@ -31,24 +41,24 @@
 
 <script setup>
 const handleLogoClick = () => {
-  // No logic to implement. Demo purpose only.
+  // Logic not needed for the purpose of this assignment
 }
 
 const handleNotificationClick = () => {
-  // No logic to implement. Demo purpose only.
+  // Logic not needed for the purpose of this assignment
 }
 
 const handleProfileClick = () => {
-  // No logic to implement. Demo purpose only.
+  // Logic not needed for the purpose of this assignment
 }
 
 const handleStoreClick = () => {
-  // No logic to implement. Demo purpose only.
+  // Logic not needed for the purpose of this assignment
 }
 </script>
 
 <style lang="scss" scoped>
-.header {
+.main-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -69,7 +79,7 @@ const handleStoreClick = () => {
   }
 }
 
-.header__logo {
+.main-header__logo {
   margin-right: 1rem;
 
   img {
@@ -77,13 +87,13 @@ const handleStoreClick = () => {
   }
 }
 
-.header__brand {
+.main-header__brand {
   font-size: 1.2rem;
   font-weight: 500;
   margin: 0;
 }
 
-.header__stores {
+.main-header__stores {
   font-size: 0.9rem;
   font-weight: 500;
   background: none;
@@ -93,7 +103,7 @@ const handleStoreClick = () => {
   cursor: pointer;
 }
 
-.header__icon {
+.main-header__icon {
   background: none;
   border: none;
   padding: 0;

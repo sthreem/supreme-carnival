@@ -1,14 +1,22 @@
 <template>
-  <div class="currencies">
-    <div class="currencies__left" :class="{ shrink: rightVisible }">
+  <main class="currencies">
+    <section
+      class="currencies__left"
+      :class="{ 'currencies__left--shrink': rightVisible }"
+    >
       <ListHeader />
       <ListSearch />
       <ListDisplay />
-    </div>
-    <div v-show="rightVisible" class="currencies__right">
+    </section>
+    <section
+      v-show="rightVisible"
+      class="currencies__right"
+      role="complementary"
+      aria-label="Currency Details"
+    >
       <router-view name="currency"></router-view>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script setup>
@@ -38,7 +46,7 @@ const rightVisible = computed(() => {
     transition: flex-basis 0.2s ease-in-out;
   }
 
-  &__left.shrink {
+  &__left--shrink {
     flex-basis: auto;
   }
 

@@ -14,17 +14,17 @@ const routes = [
       {
         path: 'analytics',
         name: 'Analytics',
-        component: () => import('@/views/AnalyticsView.vue'),
+        component: () => import('@/views/GenericView.vue'),
       },
       {
         path: 'offers',
         name: 'Offers',
-        component: () => import('@/views/OffersView.vue'),
+        component: () => import('@/views/GenericView.vue'),
       },
       {
         path: 'loyalty',
         name: 'Loyalty',
-        component: () => import('@/views/LoyaltyView.vue'),
+        component: () => import('@/views/GenericView.vue'),
       },
       {
         path: 'currencies',
@@ -50,12 +50,12 @@ const routes = [
       {
         path: 'dispatch',
         name: 'Dispatch',
-        component: () => import('@/views/DispatchView.vue'),
+        component: () => import('@/views/GenericView.vue'),
       },
       {
         path: 'configurations',
         name: 'Configurations',
-        component: () => import('@/views/ConfigurationsView.vue'),
+        component: () => import('@/views/GenericView.vue'),
       },
     ],
   },

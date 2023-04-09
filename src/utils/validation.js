@@ -8,7 +8,7 @@ export const isValidPassword = (password) => {
 }
 
 export const validateId = (id) => {
-  return !!id
+  return id !== null && id !== undefined && id !== ''
 }
 
 export const validateIsoMark = (isoMark) => {

@@ -4,7 +4,7 @@ import LoginView from '@/views/LoginView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import store from '@/store'
 
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'Home',
@@ -80,6 +80,8 @@ router.beforeEach((to, from, next) => {
   const isAuthenticated = store.getters['auth/isLoggedIn']
   if (to.meta.requiresAuth && !isAuthenticated) {
     next('/login')
+  } else if (to.name === 'Login' && isAuthenticated) {
+    next('/')
   } else {
     next()
   }

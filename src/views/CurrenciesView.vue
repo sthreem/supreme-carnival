@@ -21,7 +21,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, RouterView } from 'vue-router'
 
 import ListHeader from '@/components/ListHeader.vue'
 import ListSearch from '@/components/ListSearch.vue'

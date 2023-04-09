@@ -21,6 +21,7 @@
 <script setup>
 import HomeHeader from '@/components/HomeHeader.vue'
 import HomeNav from '@/components/HomeNav.vue'
+import { RouterView } from 'vue-router'
 </script>
 
 <style lang="scss" scoped>
